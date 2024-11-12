@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesorías de Ingeniería en Sistemas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+        }
+
+       
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .sidebar {
+            background-color: #004c3f;
+            color: white;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            margin: 10px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #03917c;
+        }
+
+        .container {
+            margin-left: 270px; /* Espacio para el sidebar */
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .semester {
+            background-color: white;
+            width: 30%;
+            margin: 15px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            min-height: 300px; /* Altura mínima para los semestres */
+        }
+
+        .semester:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .semester h2 {
+            text-align: center;
+            color: #005f4b;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .subject {
+            list-style: none;
+            padding: 0;
+        }
+
+        .subject li {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .subject a {
+            text-decoration: none;
+            color: white;
+            background-color: #005f4b;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .subject a:hover {
+            background-color: #03917c;
+        }
+
+        footer {
+            background-color: #005f4b;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 30px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .semester {
+                width: 100%;
+                margin: 10px 0;
+            }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+            .container {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Menú</h2>
+    <a href="#">Inicio</a>
+    <a href="perfil.html">Perfil del Alumno</a>
+    <a href="#">Asesorías Actuales</a>
+    <a href="#">Historial de Asesorías</a>
+    <a href="#">Contacto</a>
+</div>
+
+<header>
+</header>
+
+<div class="container">
+    <!-- Primer Semestre -->
+    <div class="semester">
+        <h2>Primer Semestre</h2>
+        <ul class="subject">
+            <li><a href="#">Cálculo Diferencial</a></li>
+            <li><a href="#">Fundamentos de Programación</a></li>
+            <li><a href="#">Taller de Ética</a></li>
+            <li><a href="#">Desarrollo Sustentable</a></li>
+            <li><a href="#">Taller de Administración</a></li>
+            <li><a href="#">Matemáticas Discretas</a></li>
+        </ul>
+    </div>
+
+    <!-- Segundo Semestre -->
+    <div class="semester">
+        <h2>Segundo Semestre</h2>
+        <ul class="subject">
+            <li><a href="#">Cálculo Integral</a></li>
+            <li><a href="#">Programación Orientada a Objetos</a></li>
+            <li><a href="#">Probabilidad y Estadística</a></li>
+            <li><a href="#">Fundamentos de Investigación</a></li>
+            <li><a href="#">Álgebra Lineal</a></li>
+            <li><a href="#">Química</a></li>
+        </ul>
+    </div>
+
+    <!-- Tercer Semestre -->
+    <div class="semester">
+        <h2>Tercer Semestre</h2>
+        <ul class="subject">
+            <li><a href="#">Cálculo Vectorial</a></li>
+            <li><a href="#">Estructuras de Datos</a></li>
+            <li><a href="#">Taller de Investigación I</a></li>
+            <li><a href="#">Investigación de Operaciones</a></li>
+            <li><a href="#">Física General</a></li>
+            <li><a href="#">Cultura Empresarial</a></li>
+            <li><a href="#">Contabilidad Financiera</a></li>
+        </ul>
+    </div>
+
+    <!-- Cuarto Semestre -->
+    <div class="semester">
+        <h2>Cuarto Semestre</h2>
+        <ul class="subject">
+            <li><a href="#">Ecuaciones Diferenciales</a></li>
+            <li><a href="#">Métodos Numéricos</a></li>
+            <li><a href="#">Fundamentos de Bases de Datos</a></li>
+            <li><a href="#">Taller de Investigación II</a></li>
+            <li><a href="#">Simulación</a></li>
+            <li><a href="#">Principios Eléctricos y Aplicaciones Digitales</a></li>
+            <li><a href="#">Fundamentos de Ingeniería de Software</a></li>
+        </ul>
+    </div>
+
+    <!-- Quinto Semestre -->
+    <div class="semester">
+        <h2>Quinto Semestre</h2>
+        <ul class="subject">
+            <li><a href="#">Sistemas Operativos</a></li>
+            <li><a href="#">Fundamentos de Telecomunicaciones</a></li>
+            <li><a href="#">Taller de Bases de Datos</a></li>
+            <li><a href="#">Arquitectura de Computadoras</a></li>
+            <li><a href="#">Programación Web</a></li>
+            <li><a href="#">Graficación</a></li>
+            <li><a href="#">Ingeniería de Software</a></li>
+        </ul>
+    </div>
+
+    <!-- Sexto Semestre -->
+    <div class="semester">
+        <h2>Sexto Semestre</h2>
+        <ul class="subject">
+            <li><a href="#">Taller de Sistemas Operativos</a></li>
+            <li><a href="#">Redes de Computadoras</a></li>
+            <li><a href="#">Lenguajes y Autómatas I</a></li>
+            <li><a href="#">Lenguajes de Interfaz</a></li>
+            <li><a href="#">Tópicos Avanzados de Programación</a></li>
+            <li><a href="#">Gestión de Proyectos de Software</a></li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    <p>Tecnológico Nacional de México - Asesorías de Ingeniería en Sistemas Computacionales</p>
+</footer>
+
+</body>
+</html>
