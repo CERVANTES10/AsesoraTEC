@@ -1,5 +1,5 @@
 <?php
-$serverName = "Cervantes\SQLEXPRESS"; 
+$serverName = "Colin3"; 
 $connectionOptions = array(
     "Database" => "AsesoraTEC", 
     "Uid" => "",  
