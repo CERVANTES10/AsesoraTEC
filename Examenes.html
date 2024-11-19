@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #005f4b;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question p {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .question label {
+            display: block;
+            margin: 5px 0;
+        }
+
+        button {
+            background-color: #005f4b;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+
+        button:hover {
+            background-color: #03917c;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #005f4b;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="examTitle">Examen</h1>
+    <form id="examForm">
+        <!-- Preguntas dinámicas aquí -->
+    </form>
+    <div id="result" class="result"></div>
+
+    <script>
+        // Base de datos local con preguntas para cada materia
+        const examData = {
+            fundamentos_programacion: {
+                title: "Fundamentos de Programación",
+                questions: [
+                    { q: "¿Qué es un algoritmo?", a: ["Una secuencia de pasos", "Un tipo de hardware", "Una unidad de almacenamiento"], correct: 0 },
+                    { q: "¿Qué es una variable?", a: ["Un dato constante", "Un contenedor de datos", "Un operador lógico"], correct: 1 },
+                    { q: "¿Qué es una función en programación?", a: ["Un conjunto de variables", "Un conjunto de instrucciones que realizan una tarea específica", "Un tipo de dato"], correct: 1 },
+                    { q: "¿Qué es un bucle?", a: ["Una función recursiva", "Un proceso repetitivo", "Una variable"], correct: 1 }
+                ]
+            },
+            poo: {
+                title: "Programación Orientada a Objetos",
+                questions: [
+                    { q: "¿Qué es un objeto en POO?", a: ["Una función", "Una instancia de una clase", "Un archivo"], correct: 1 },
+                    { q: "¿Qué es encapsulamiento?", a: ["Ocultar detalles internos", "Heredar propiedades", "Crear objetos"], correct: 0 },
+                    { q: "¿Qué es la herencia?", a: ["El proceso por el cual una clase hija adquiere características de la clase madre", "La creación de nuevas clases", "Un tipo de dato"], correct: 0 },
+                    { q: "¿Qué es el polimorfismo?", a: ["La capacidad de un objeto de comportarse de diferentes formas", "La capacidad de una clase de heredar de múltiples clases", "El proceso de modificar una clase base"], correct: 0 }
+                ]
+            },
+            estructuras_datos: {
+                title: "Estructuras de Datos",
+                questions: [
+                    { q: "¿Qué es una pila?", a: ["FIFO", "LIFO", "Una lista circular"], correct: 1 },
+                    { q: "¿Qué es un árbol binario?", a: ["Un tipo de lista", "Una estructura jerárquica", "Un algoritmo"], correct: 1 },
+                    { q: "¿Qué es una cola?", a: ["FIFO", "LIFO", "Una lista circular"], correct: 0 },
+                    { q: "¿Qué es una lista enlazada?", a: ["Una estructura de datos lineales", "Un tipo de árbol", "Un tipo de pila"], correct: 0 }
+                ]
+            },
+            fundamentos_base_datos: {
+                title: "Fundamentos de Bases de Datos",
+                questions: [
+                    { q: "¿Qué es una base de datos?", a: ["Un archivo de texto", "Una colección de datos organizados", "Un servidor de información"], correct: 1 },
+                    { q: "¿Qué es una tabla en bases de datos?", a: ["Un conjunto de relaciones", "Una estructura que contiene registros", "Un índice de búsqueda"], correct: 1 },
+                    { q: "¿Qué es una clave primaria?", a: ["Un identificador único para cada registro", "Una clave de búsqueda", "Un tipo de variable"], correct: 0 },
+                    { q: "¿Qué es una relación en bases de datos?", a: ["Una tabla", "Un tipo de índice", "Una relación entre registros de diferentes tablas"], correct: 2 }
+                ]
+            },
+            principios_electricos: {
+                title: "Principios Eléctricos",
+                questions: [
+                    { q: "¿Qué es la corriente eléctrica?", a: ["El flujo de electrones", "El movimiento de átomos", "Una carga positiva en reposo"], correct: 0 },
+                    { q: "¿Qué es la resistencia?", a: ["La oposición al flujo de corriente", "Un tipo de conductor", "La capacidad de almacenar energía"], correct: 0 },
+                    { q: "¿Qué es un circuito eléctrico?", a: ["Un conjunto de dispositivos eléctricos conectados", "Una resistencia", "Un tipo de fuente de energía"], correct: 0 }
+                ]
+            },
+            fundamentos_ingenieria_software: {
+                title: "Fundamentos de Ingeniería de Software",
+                questions: [
+                    { q: "¿Qué es el ciclo de vida del software?", a: ["Las etapas que sigue el software desde su concepción hasta su retiro", "El proceso de crear programas", "El proceso de vender software"], correct: 0 },
+                    { q: "¿Qué es la ingeniería de requisitos?", a: ["La definición de lo que el software debe hacer", "La programación de software", "El diseño de interfaces gráficas"], correct: 0 },
+                    { q: "¿Qué es la programación orientada a objetos?", a: ["Un enfoque de programación que utiliza clases y objetos", "Un tipo de base de datos", "Un proceso de diseño de interfaces"], correct: 0 }
+                ]
+            },
+            sistemas_operativos: {
+                title: "Sistemas Operativos",
+                questions: [
+                    { q: "¿Qué es un sistema operativo?", a: ["Un programa que gestiona el hardware y el software de una computadora", "Un tipo de lenguaje de programación", "Un conjunto de aplicaciones"], correct: 0 },
+                    { q: "¿Qué es la gestión de memoria?", a: ["El proceso de asignar y liberar memoria", "La administración de archivos", "El control de la red"], correct: 0 },
+                    { q: "¿Qué es un proceso?", a: ["Un programa en ejecución", "Un tipo de archivo", "Un servidor de red"], correct: 0 }
+                ]
+            },
+            fundamentos_telecomunicaciones: {
+                title: "Fundamentos de Telecomunicaciones",
+                questions: [
+                    { q: "¿Qué es la modulación?", a: ["El proceso de variar una señal portadora", "La transmisión de información a través de ondas", "Un tipo de protocolo de comunicación"], correct: 0 },
+                    { q: "¿Qué es la frecuencia?", a: ["El número de ciclos por segundo de una onda", "El tipo de señal transmitida", "La cantidad de información transmitida"], correct: 0 },
+                    { q: "¿Qué es una red de telecomunicaciones?", a: ["Una infraestructura que permite la transmisión de datos", "Un conjunto de computadoras", "Un tipo de hardware"], correct: 0 }
+                ]
+            },
+            taller_base_datos: {
+                title: "Taller de Bases de Datos",
+                questions: [
+                    { q: "¿Qué es una consulta SQL?", a: ["Un comando que interactúa con la base de datos", "Una forma de visualizar los datos", "Un tipo de backup"], correct: 0 },
+                    { q: "¿Qué es una relación?", a: ["Una tabla", "Un conjunto de registros", "Una conexión entre dos tablas"], correct: 2 },
+                    { q: "¿Qué es un índice en bases de datos?", a: ["Una lista de registros", "Una estructura para mejorar la búsqueda", "Un tipo de clave primaria"], correct: 1 }
+                ]
+            },
+            arquitectura_computadoras: {
+                title: "Arquitectura de Computadoras",
+                questions: [
+                    { q: "¿Qué es la unidad central de procesamiento (CPU)?", a: ["El cerebro de la computadora", "Un tipo de memoria", "El almacenamiento de datos"], correct: 0 },
+                    { q: "¿Qué es la memoria RAM?", a: ["Una memoria volátil que almacena datos temporalmente", "Una memoria permanente", "Un tipo de dispositivo de almacenamiento externo"], correct: 0 },
+                    { q: "¿Qué es la unidad de control?", a: ["El componente que coordina las operaciones del procesador", "El que almacena los datos", "El que ejecuta las instrucciones"], correct: 0 }
+                ]
+            },
+            programacion_web: {
+                title: "Programación Web",
+                questions: [
+                    { q: "¿Qué es HTML?", a: ["Un lenguaje de marcado para crear páginas web", "Un lenguaje de programación", "Un tipo de base de datos"], correct: 0 },
+                    { q: "¿Qué es CSS?", a: ["Un lenguaje de estilo para el diseño de páginas web", "Un lenguaje de programación", "Una base de datos"], correct: 0 },
+                    { q: "¿Qué es JavaScript?", a: ["Un lenguaje de programación para hacer páginas interactivas", "Un tipo de lenguaje de marcado", "Una herramienta de diseño"], correct: 0 }
+                ]
+            },
+            graficacion: {
+                title: "Graficación",
+                questions: [
+                    { q: "¿Qué es un gráfico en programación?", a: ["Una representación visual de datos", "Un conjunto de instrucciones", "Una función matemática"], correct: 0 },
+                    { q: "¿Qué es OpenGL?", a: ["Una librería para gráficos 2D y 3D", "Un tipo de lenguaje de programación", "Un software de edición de imágenes"], correct: 0 },
+                    { q: "¿Qué es la rasterización?", a: ["El proceso de convertir imágenes vectoriales en píxeles", "Un proceso de creación de gráficos", "Un método de compresión de imágenes"], correct: 0 }
+                ]
+            },
+            gestion_proyectos: {
+                title: "Gestión de Proyectos",
+                questions: [
+                    { q: "¿Qué es la gestión de proyectos?", a: ["La planificación y organización de recursos para alcanzar objetivos", "El desarrollo de software", "La ejecución de tareas individuales"], correct: 0 },
+                    { q: "¿Qué es un diagrama de Gantt?", a: ["Una herramienta para mostrar la cronología de un proyecto", "Un tipo de contrato de trabajo", "Un software de gestión"], correct: 0 },
+                    { q: "¿Qué es un proyecto?", a: ["Un esfuerzo temporal para crear un producto o servicio único", "Un grupo de tareas repetitivas", "Una actividad diaria"], correct: 0 }
+                ]
+            },
+                conmutacion_enrutamiento_redes_bd: {
+                title: "Conmutación y Enrutamiento de Redes de Bases de Datos",
+                questions: [
+                    { q: "¿Qué es el enrutamiento en redes?", a: ["La transferencia de datos entre nodos", "La codificación de señales", "La configuración de direcciones IP"], correct: 0 },
+                    { q: "¿Qué es una tabla de enrutamiento?", a: ["Una estructura que define cómo enviar los datos en la red", "Un conjunto de protocolos de comunicación", "Un tipo de conexión física"], correct: 0 },
+                    { q: "¿Qué es la conmutación de paquetes?", a: ["El proceso de dividir los datos en pequeños bloques para su transmisión", "La asignación de direcciones IP", "El proceso de encriptar la información"], correct: 0 }
+                ]
+            },
+            admin_base_datos: {
+                title: "Administración de Bases de Datos",
+                questions: [
+                    { q: "¿Qué es un SGBD?", a: ["Sistema de Gestión de Bases de Datos", "Sistema de Generación de Bases de Datos", "Sistema de Gestión de Búsqueda"], correct: 0 },
+                    { q: "¿Qué es una consulta SQL?", a: ["Un comando que interactúa con la base de datos", "Un archivo que almacena datos", "Un tipo de base de datos"], correct: 0 },
+                    { q: "¿Qué es una clave foránea?", a: ["Una clave que establece una relación entre dos tablas", "Una clave única dentro de una tabla", "Una clave de búsqueda"], correct: 0 }
+                ]
+            },
+            sistemas_programables: {
+                title: "Sistemas Programables",
+                questions: [
+                    { q: "¿Qué es un FPGA?", a: ["Un dispositivo programable en el que se pueden configurar circuitos", "Un tipo de microprocesador", "Una memoria de solo lectura"], correct: 0 },
+                    { q: "¿Qué es la programación de microcontroladores?", a: ["El proceso de escribir instrucciones para pequeños circuitos electrónicos", "La configuración de redes de computadoras", "La creación de bases de datos"], correct: 0 },
+                    { q: "¿Qué es la lógica programable?", a: ["El uso de dispositivos programables para realizar tareas lógicas", "La programación de software de alto nivel", "La implementación de bases de datos"], correct: 0 }
+                ]
+            },
+            lenguajes_y_automatas_2: {
+                title: "Lenguajes y Autómatas 2",
+                questions: [
+                    { q: "¿Qué es un autómata?", a: ["Un modelo matemático para representar lenguajes formales", "Un tipo de lenguaje de programación", "Un proceso de computación"], correct: 0 },
+                    { q: "¿Qué es un lenguaje regular?", a: ["Un lenguaje que puede ser representado por una expresión regular", "Un tipo de base de datos", "Un lenguaje de programación orientado a objetos"], correct: 0 },
+                    { q: "¿Qué es una máquina de Turing?", a: ["Un modelo abstracto de computación", "Un tipo de red neuronal", "Un sistema de almacenamiento de datos"], correct: 0 }
+                ]
+            },
+            admin_redes: {
+                title: "Administración de Redes",
+                questions: [
+                    { q: "¿Qué es una red de área local (LAN)?", a: ["Una red que conecta dispositivos en una área geográfica limitada", "Una red que conecta computadoras a nivel mundial", "Un sistema de almacenamiento de información"], correct: 0 },
+                    { q: "¿Qué es una dirección IP?", a: ["Una dirección única para cada dispositivo en una red", "Un tipo de protocolo de comunicación", "Un método de encriptación de datos"], correct: 0 },
+                    { q: "¿Qué es un protocolo de comunicación?", a: ["Un conjunto de reglas para la transmisión de datos entre dispositivos", "Un software de gestión de redes", "Una unidad de procesamiento de red"], correct: 0 }
+                ]
+            },
+
+
+            };
+            // Continúa agregando las materias aquí
+        
+
+        // Obtener el parámetro de la materia desde la URL
+        const params = new URLSearchParams(window.location.search);
+        const materia = params.get("materia");
+
+        // Verificar si la materia existe en la base de datos
+        if (examData[materia]) {
+            const exam = examData[materia];
+            document.getElementById("examTitle").textContent = exam.title;
+
+            const form = document.getElementById("examForm");
+            exam.questions.forEach((question, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.className = "question";
+                questionDiv.innerHTML = ` 
+                    <p>${index + 1}. ${question.q}</p>
+                    ${question.a
+                        .map(
+                            (option, i) =>
+                                `<label><input type="radio" name="q${index}" value="${i}"> ${option}</label>`
+                        )
+                        .join("")}
+                `;
+                form.appendChild(questionDiv);
+            });
+
+            const button = document.createElement("button");
+            button.textContent = "Enviar";
+            button.type = "button";
+            button.onclick = gradeExam;
+            form.appendChild(button);
+        } else {
+            document.body.innerHTML = "<h1>Materia no encontrada</h1>";
+        }
+
+        function gradeExam() {
+    const exam = examData[materia];
+    let score = 0;
+
+    exam.questions.forEach((question, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if (selected && parseInt(selected.value) === question.correct) {
+            score++;
+        }
+    });
+
+    const totalQuestions = exam.questions.length;
+    const percentage = (score / totalQuestions) * 100;
+
+    // Mostrar el porcentaje con 2 decimales
+    document.getElementById("result").innerHTML = `Tu calificación es: ${percentage.toFixed(2)}% (${score}/${totalQuestions})`;
+}
+
+    </script>
+</body>
+</html>
