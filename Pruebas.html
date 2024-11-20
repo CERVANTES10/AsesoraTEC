@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seleccionar Materia</title>
+    <!-- Agregar Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -79,6 +81,35 @@
             background-color: #027a61;
         }
 
+        /* Estilo para el botón de regresar con ícono */
+        .back-button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: none;
+            background-color: #d9534f;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button i {
+            margin-right: 8px; /* Espacio entre ícono y texto */
+        }
+
+        .back-button:hover {
+            background-color: #c9302c;
+        }
+
+        .back-button:active {
+            background-color: #ac2925;
+        }
+
     </style>
 </head>
 <body>
@@ -107,6 +138,11 @@
         </select>
 
         <button type="button" onclick="startExam()">Comenzar Examen</button>
+        
+        <!-- Botón de regreso con ícono debajo del botón de "Comenzar Examen" -->
+        <button class="back-button" type="button" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i> Regresar
+        </button>
     </form>
 
     <script>
@@ -114,6 +150,11 @@
             const materia = document.getElementById('materia').value;
             // Redirigir a la página de examen con el parámetro 'materia'
             window.location.href = `Examenes.html?materia=${materia}`;
+        }
+
+        function goBack() {
+            // Redirigir al archivo index.html
+            window.location.href = 'index.html';
         }
     </script>
 </body>
