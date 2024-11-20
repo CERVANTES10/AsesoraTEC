@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Examen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Carga de Font Awesome -->
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -254,6 +256,20 @@
             button.type = "button";
             button.onclick = gradeExam;
             form.appendChild(button);
+
+            // Botón con icono debajo del botón "Enviar"
+            const iconButton = document.createElement("button");
+            iconButton.classList.add("icon-button");
+            iconButton.type = "button";
+            iconButton.innerHTML = '<i class="fas fa-home"></i>Volver al Inicio'; // Ícono de casa
+            iconButton.onclick = function() {
+            window.location.href = 'index.html'; // Redirige al archivo index.html
+            };
+            form.appendChild(iconButton);
+
+
+
+
         } else {
             document.body.innerHTML = "<h1>Materia no encontrada</h1>";
         }
