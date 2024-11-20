@@ -1,0 +1,191 @@
+/* Reset de estilos */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #004c3f;
+    color: white;
+    width: 250px;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    margin: 10px 0;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #03917c;
+}
+
+.container {
+    margin-left: 270px;
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Estilo de los semestres */
+.semester {
+    background-color: white;
+    width: 30%;
+    margin: 15px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    min-height: 300px;
+}
+
+.semester:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.semester h2 {
+    text-align: center;
+    color: #005f4b;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+/* Botones de materias */
+.subject-button {
+    color: white;
+    background-color: #005f4b;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin: 10px 0;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.subject-button:hover {
+    background-color: #03917c;
+}
+
+/* Animaciones de ocultar */
+.semester.hidden .title,
+.semester.hidden .subject-button {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Ocultar completamente después de la animación */
+.semester.hidden-post {
+    display: none !important;
+}
+
+/* Información de la materia */
+.subject-info {
+    display: none;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.subject-info.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Botón "Volver" */
+.back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+/* Animaciones para desaparecer */
+.slide-up {
+    transform: translateY(-50px);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Ocultar completamente elementos con esta clase */
+.hidden-content {
+    display: none !important; /* Remueve completamente del flujo */
+}
+
+/* Contenedor contraído */
+.semester {
+    overflow: hidden; /* Asegura que el contenido no sobresalga */
+    transition: height 0.5s ease; /* Ajusta la altura suavemente */
+}
+
+/* Mantiene la altura mínima */
+.semester.minimized {
+    height: 50px; /* Ajusta según la altura del contenedor colapsado */
+}
+/* Información de la materia */
+.subject-info {
+    display: none; /* Por defecto, no ocupa espacio */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.subject-info.active {
+    display: block; /* Visible solo cuando está activa */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Transiciones de semestres */
+.semester {
+    overflow: hidden; /* Asegura que no haya contenido visible fuera */
+    transition: height 0.5s ease;
+}
+
+.semester.minimized {
+    height: 50px; /* Ajusta al tamaño colapsado */
+}

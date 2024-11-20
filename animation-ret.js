@@ -1,86 +1,79 @@
 function showSubjectInfo(subjectId) {
-    // Encuentra el botón específico de la materia seleccionada
     const subjectButton = document.querySelector(`.subject-button[onclick="showSubjectInfo('${subjectId}')"]`);
-    if (!subjectButton) return; // Si no encuentra el botón, se detiene
+    if (!subjectButton) return;
 
-    // Encuentra el semestre específico al que pertenece el botón de materia seleccionado
     const semester = subjectButton.closest('.semester');
     if (!semester) return;
 
-    // Restaura todos los semestres antes de aplicar la animación al semestre actual
+    // Restaurar todos los semestres excepto el seleccionado
     document.querySelectorAll('.semester').forEach(otherSemester => {
         if (otherSemester !== semester) {
-            const title = otherSemester.querySelector('.title');
-            const buttons = otherSemester.querySelectorAll('.subject-button');
-
-            // Muestra nuevamente el título y los botones
-            if (title) {
-                title.classList.remove('hidden', 'slide-up');
-            }
-            buttons.forEach(button => {
-                button.classList.remove('hidden', 'slide-up');
-                button.style.visibility = 'visible'; // Restaura visibilidad de los botones
-            });
+            restoreSemester(otherSemester); // Restaura los semestres previos
         }
+    });
+
+    // Ocultar cualquier información activa
+    document.querySelectorAll('.subject-info').forEach(info => {
+        info.classList.remove('active');
+        info.style.display = 'none'; // Asegura que no ocupe espacio
     });
 
     const title = semester.querySelector('.title');
     const buttons = semester.querySelectorAll('.subject-button');
 
-    // Añade la clase 'slide-up' solo al título y al botón seleccionado
-    if (title) {
-        title.classList.add('slide-up');
-    }
-    buttons.forEach(button => {
-        if (button !== subjectButton) {
-            button.style.visibility = 'hidden'; // Oculta los otros botones del mismo semestre sin animación
-        } else {
-            button.classList.add('slide-up'); // Solo el botón seleccionado tiene animación
-        }
-    });
+    // Animar el título y botones del semestre actual
+    if (title) title.classList.add('slide-up');
+    buttons.forEach(button => button.classList.add('slide-up'));
 
-    // Oculta todos los contenedores de información de materias
-    document.querySelectorAll('.subject-info').forEach(info => {
-        info.classList.remove('active');
-    });
-
-    // Después de que termine la animación, añade la clase 'hidden' solo al título y botón seleccionados
+    // Esperar la animación antes de ocultar el contenido
     setTimeout(() => {
         if (title) {
-            title.classList.add('hidden');
+            title.classList.add('hidden-content');
+            title.style.display = 'none'; // Remueve completamente del flujo
         }
-        subjectButton.classList.add('hidden'); // Oculta solo el botón seleccionado
+        buttons.forEach(button => {
+            button.classList.add('hidden-content');
+            button.style.display = 'none'; // Remueve completamente del flujo
+        });
 
-        // Muestra el contenedor de la materia seleccionada después de ocultar el botón
+        // Reducir la altura del contenedor del semestre actual
+        semester.classList.add('minimized');
+
+        // Mostrar la información de la materia seleccionada
         const subjectInfo = document.getElementById(subjectId);
         if (subjectInfo) {
+            subjectInfo.style.display = 'block'; // Asegura que sea visible
             subjectInfo.classList.add('active');
         }
     }, 500); // Duración de la animación
 }
 
-function showAllSubjects() {
-    // Encuentra todos los contenedores de semestre
-    const semesters = document.querySelectorAll('.semester');
+function restoreSemester(semester) {
+    const title = semester.querySelector('.title');
+    const buttons = semester.querySelectorAll('.subject-button');
 
-    // Restaura el título y botones en cada semestre
-    semesters.forEach(semester => {
-        const title = semester.querySelector('.title');
-        const buttons = semester.querySelectorAll('.subject-button');
-
-        // Muestra nuevamente el título y los botones
-        if (title) {
-            title.classList.remove('hidden', 'slide-up');
-        }
-        buttons.forEach(button => {
-            button.classList.remove('hidden', 'slide-up');
-            button.style.visibility = 'visible'; // Restaura visibilidad de los botones
-        });
+    // Restaurar el título y botones del semestre
+    if (title) {
+        title.classList.remove('slide-up', 'hidden-content');
+        title.style.display = 'block';
+    }
+    buttons.forEach(button => {
+        button.classList.remove('slide-up', 'hidden-content');
+        button.style.display = 'inline-block';
     });
 
-    // Oculta todos los contenedores de información de materias
-    document.querySelectorAll('.subject-info').forEach(info => {
-        info.classList.remove('active');
-    });
+    // Restaurar la altura del contenedor
+    semester.classList.remove('minimized');
 }
 
+function showAllSubjects() {
+    const semesters = document.querySelectorAll('.semester');
+
+    semesters.forEach(semester => restoreSemester(semester));
+
+    // Ocultar toda la información de materias
+    document.querySelectorAll('.subject-info').forEach(info => {
+        info.classList.remove('active');
+        info.style.display = 'none'; // Elimina cualquier espacio
+    });
+}
