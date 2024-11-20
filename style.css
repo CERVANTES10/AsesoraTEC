@@ -140,21 +140,32 @@ footer{
     transform: translateY(0);
 }
 
-/* Botón "Volver" */
 .back-button {
     margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
+    padding: 12px 24px; /* Tamaño un poco más grande */
+    background-color: #005f4b; /* Manteniendo el color base */
+    color: #fff; /* Texto blanco */
     border: none;
-    border-radius: 5px;
+    border-radius: 30px; /* Bordes redondeados para un look moderno */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 1em; /* Tamaño de fuente ajustado */
+    font-weight: bold; /* Letra más destacada */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; /* Animaciones suaves */
 }
 
 .back-button:hover {
-    background-color: #0056b3;
+    background-color: #03917c; /* Color más brillante al pasar el cursor */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Incremento de la sombra */
+    transform: translateY(-3px); /* Ligero levantamiento */
 }
+
+.back-button:active {
+    background-color: #027a66; /* Color más oscuro al hacer clic */
+    transform: translateY(1px); /* Simula un clic al bajarse ligeramente */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* Reduce la sombra */
+}
+
 /* Animaciones para desaparecer */
 .slide-up {
     transform: translateY(-50px);
