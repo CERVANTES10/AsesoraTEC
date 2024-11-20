@@ -62,15 +62,14 @@
         }
 
         button {
-            width: 100%;
-            padding: 14px;
-            border-radius: 8px;
-            border: none;
             background-color: #005f4b;
             color: white;
-            font-size: 1.1rem;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            display: block;
+            margin: 20px auto;
         }
 
         button:hover {
@@ -81,34 +80,7 @@
             background-color: #027a61;
         }
 
-        /* Estilo para el botón de regresar con ícono */
-        .back-button {
-            width: 100%;
-            padding: 14px;
-            border-radius: 8px;
-            border: none;
-            background-color: #d9534f;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px;
-            transition: background-color 0.3s ease;
-        }
-
-        .back-button i {
-            margin-right: 8px; /* Espacio entre ícono y texto */
-        }
-
-        .back-button:hover {
-            background-color: #c9302c;
-        }
-
-        .back-button:active {
-            background-color: #ac2925;
-        }
+       
 
     </style>
 </head>
@@ -140,8 +112,8 @@
         <button type="button" onclick="startExam()">Comenzar Examen</button>
         
         <!-- Botón de regreso con ícono debajo del botón de "Comenzar Examen" -->
-        <button class="back-button" type="button" onclick="goBack()">
-            <i class="fas fa-arrow-left"></i> Regresar
+        <button  type="button" onclick="goBack()">
+            <i class="fas fa-home"></i> Regresar
         </button>
     </form>
 
