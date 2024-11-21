@@ -191,13 +191,16 @@
             <option value="lenguajes_y_automatas_2">Lenguajes y Autómatas 2</option>
             <option value="admin_redes">Administración de Redes</option>
         </select>
-        
-        <button type="button" onclick="startExam()">Comenzar Examen</button>
-        
-        <!-- Botón de regreso con ícono debajo del botón de "Comenzar Examen" -->
+
         <button type="button" onclick="goBack()">
-            <i class="fas fa-home"></i> Regresar
+            <i class="fas fa-home"></i> <Strong>Regresar</Strong>
         </button>
+        <script>
+            function goBack() {
+                window.location.href = 'index.php'; 
+            }
+        </script>
+
     </form>
 
     <script>
@@ -205,11 +208,6 @@
             const materia = document.getElementById('materia').value;
             // Redirigir a la página de examen con el parámetro 'materia'
             window.location.href = `Examenes.html?materia=${materia}`;
-        }
-
-        function goBack() {
-            // Redirigir al archivo index.html
-            window.location.href = 'index.html';
         }
     </script>
 

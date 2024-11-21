@@ -1,7 +1,8 @@
 <?php
-$serverName = "Colin3"; 
+
+$serverName = "PCOLIN3"; 
 $connectionOptions = array(
-    "Database" => "AsesoraTEC", 
+    "Database" => "asesoratec", 
     "Uid" => "",  
     "PWD" => ""   
 );
@@ -16,7 +17,7 @@ if ($conn === false) {
 $correo = trim($_POST['correo']);
 $contrasena = trim($_POST['contrasena']);
 
-$sql = "SELECT id_usuario, Nombre, contrasena FROM Usuarios WHERE correo = ?";
+$sql = "SELECT id_usuario, nombre, correo, contrasena, rol, numAsesorias, numAsesoriasCom FROM Usuarios WHERE correo = ?";
 $params = array($correo);
 
 $stmt = sqlsrv_query($conn, $sql, $params);
@@ -32,10 +33,14 @@ if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         // Contraseña correcta, inicia sesión
         session_start();
         $_SESSION['id_usuario'] = $row['id_usuario'];
-        $_SESSION['Nombre'] = $row['Nombre'];
+        $_SESSION['Nombre'] = $row['nombre'];
+        $_SESSION['Correo'] = $row['correo'];
+        $_SESSION['Rol'] = $row['rol'];
+        $_SESSION['NumAsesorias'] = $row['numAsesorias'];
+        $_SESSION['NumAsesoriasCom'] = $row['numAsesoriasCom'];        
         
         // Redirigir a la página de inicio o dashboard
-        header("Location: index.html");
+        header("Location: index.php");
         exit();
     } else {
         // Contraseña incorrecta

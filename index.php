@@ -1,3 +1,7 @@
+<?php
+session_start(); // Iniciar la sesión
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,9 +13,9 @@
     <div class="sidebar">
         <h2>Menú</h2>
         <a href="#">Inicio</a>
-        <a href="perfil.html">Perfil del Alumno</a>
-        <a href="#">Contacto</a>
+        <a href="Perfil.php">Perfil del <?php echo $_SESSION['Rol']; ?></a>
         <a href="pruebas.html">Pruebas</a>
+        <a href="login.php">Cerrar sesion</a>
     </div>
 <header>
 </header>
@@ -26,9 +30,10 @@
                 <p>Esta materia introduce a los estudiantes a la lógica de programación y la resolución de problemas computacionales. 
                     Se aprende el uso de lenguajes como Python, C o JavaScript para escribir algoritmos básicos, entender 
                     estructuras de control (condicionales, bucles) y trabajar con datos básicos. Es el pilar para el 
-                    desarrollo de aplicaciones en el futuro.</p>
-                    <li><a href="https://nlaredo.tecnm.mx/takeyas/Apuntes/Fundamentos%20de%20Programacion/index.htm">Fundamentos de Programación</a></li>
-                </div>
+                    desarrollo de aplicaciones en el futuro.
+                </p>
+                <a href="Prueba2.php?subject=Fundamentos de Programacion&Enlace=https://nlaredo.tecnm.mx/takeyas/Apuntes/Fundamentos%20de%20Programacion/index.htm">Fundamentos de Programación</a>    
+            </div>
         </div>
         <!--Segundo Semestre-->
         <div class="semester">
